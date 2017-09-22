@@ -20,8 +20,10 @@ var vn;
 var input;
 var nameP;
 var h1;
-
-
+var k=0;
+var k1 = 0;
+var se = 0 ;
+var sw = true;
 
 
 function setup() {
@@ -29,23 +31,22 @@ function setup() {
   //canvas.position(500,500);
   bgcolor = color(200);
   h1 = createP('select value');
-  createP("h Value");
+ 
   sliderH  = createSlider(0,100,50);
-  createP("a Value");
+  createP("h = " +sliderH.value());
   sliderA  = createSlider(0,100,20);
-  createP("alpha Value");
-  sliderAL  = createSlider(1,60,60);
-  createP("k value");
-  sliderK  = createSlider(0,90,0);
+  createP("a = " +sliderA.value());
+  sliderAL  = createSlider(1,90,45);
+  createP("alpha = " +sliderAL.value());
 
-  createP("horizontal number");
   sliderHN  = createSlider(2,20,5);
-  createP("vertical number");
+  createP("horizontal number = " +sliderHN.value());
   sliderVN  = createSlider(2,20,5);
+  createP("vertical number = " +sliderVN.value());
 
   createP(" ");
-  button = createButton("update");
-  button.mousePressed(changeColor);
+  button = createButton("Moving/Stop moving");
+  button.mousePressed(stop);
 
 
   //createSlider(10,100,47);
@@ -54,10 +55,19 @@ function UpdateName(){
 	name = input.value();
 }
 
-function changeColor(){
-	bgcolor = color(random(255));
-
+function stop(){
+  if (sw == true) sw =false;
+  else sw = true;
 }
+
+/*
+function switch(){
+  if (sw == true ){
+    sw = false;
+  }else{
+    sw = true;
+  }
+}*/
 
 function draw() {
   
@@ -65,15 +75,29 @@ function draw() {
   h = sliderH.value();
   a = sliderA.value();
   al = PI*(sliderAL.value())/180;
-  k = sliderK.value()/100;
   hn = sliderHN.value();
   vn = sliderVN.value();
   rotateX(PI/2);
-  //rotateY(PI/3);
 
 
-//translateX(j=1, i = hn-1 )
-//translateY(j=vn, i = 0 )
+
+  if ( sw == true){
+    se = se+1;
+    if (se>360) se = se-360;
+    k = 0.95*sin((se/180)*PI);
+  }else{
+    
+    
+    if ((se/180) ==2) se = 360;
+    else if ((se/180) ==1) se = 180;
+    else se = se+1;
+    k = 0.95*sin((se/180)*PI);
+    
+  }
+
+  
+
+
 
   for ( var j = 0; j <vn+1 ; j++){
     for (var i = 0; i <hn ; i++){
@@ -98,20 +122,9 @@ function draw() {
       endShape();
       pop();
 
-
-
-
-
     }
   }
 
-
-
-
-
-
-
-  (h/sin(al))*sqrt( 1- (cos(al)*cos(al))/(cos(al*k)*cos(al*k)))*j
 
   
 }
