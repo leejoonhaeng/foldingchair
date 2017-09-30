@@ -1,4 +1,5 @@
-var button;
+var button1;
+var button2;
 var bgcolor;
 var canvas ; 
 var x = 100;
@@ -25,11 +26,12 @@ var k1 = 0;
 var se = 0 ;
 var sw = true;
 
+var txt ; 
 
 function setup() {
   canvas = createCanvas(500,500,WEBGL);
   //canvas.position(500,500);
-  bgcolor = color(200);
+  bgcolor = color(255);
   h1 = createP('select value');
  
   sliderH  = createSlider(0,100,50);
@@ -44,9 +46,13 @@ function setup() {
   sliderVN  = createSlider(2,20,5);
   createP("vertical number = " +sliderVN.value());
 
-  createP(" ");
-  button = createButton("Moving/Stop moving");
-  button.mousePressed(stop);
+  txt  = createP("hi  ");
+  
+  button1 = createButton("Moving/Stop moving");
+  button1.mousePressed(stop);
+
+  button2 = createButton("change color");
+  button2.mouseOver(changeBackground);
 
 
   //createSlider(10,100,47);
@@ -58,6 +64,12 @@ function UpdateName(){
 function stop(){
   if (sw == true) sw =false;
   else sw = true;
+}
+
+function changeBackground(){
+  txt.style("background-color","pink");
+  txt.style("padding","20px");
+
 }
 
 /*
